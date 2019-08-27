@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 @Value
 @Builder
 public class UserCreateRequest {
-
     @NotBlank
     private String firstName;
     @NotBlank

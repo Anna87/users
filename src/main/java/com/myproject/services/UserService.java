@@ -9,8 +9,6 @@ import com.myproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -23,7 +21,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User create(@NotNull final UserCreateRequest userCreateRequest) {
+    public User create(final UserCreateRequest userCreateRequest) {
         return userRepository.save(User.builder()
                 .firstName(userCreateRequest.getFirstName())
                 .lastName(userCreateRequest.getLastName())
@@ -44,14 +42,13 @@ public class UserService {
     public void delete(final String id) {
         //TODO findById, change status obsolete
         final User user = findExistingUserById(id);
-        ;
 
         userRepository.save(user.toBuilder()
                 .status(Status.OBSOLETE).build()
         );
     }
 
-    public User findExistingUserById(@NotBlank final String id) {
+    public User findExistingUserById(final String id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("User not found"));
     }
